@@ -68,6 +68,7 @@ class NameFactory{
     // No customized Factory constructor
 
     // we create the instances/objects of Namer class in this Factory method using an argument
+    // get Namer Type based on the arg.
     public Namer getNamer(String fullNameFormat){
         // check if the command found
         int i = fullNameFormat.indexOf(',');
