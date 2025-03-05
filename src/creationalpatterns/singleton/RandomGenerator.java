@@ -14,9 +14,9 @@ public class RandomGenerator {
     private RandomGenerator(){};
 
     public static RandomGenerator getRandomGeneratorInstance(){
-        // Eensures one instrance will only be initialized 
+        // Ensures ONLY one instance will only be initialized
         if (randomGeneratorInstance == null){
-            // Lazy initliazation for multie-threading purpose
+            // Lazy initialization for multi-threading purpose
             synchronized (RandomGenerator.class){
                 if (randomGeneratorInstance == null) {
                     randomGeneratorInstance = new RandomGenerator();
