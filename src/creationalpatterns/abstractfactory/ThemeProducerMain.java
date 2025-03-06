@@ -1,7 +1,7 @@
 package creationalpatterns.abstractfactory;
 
 /**
- * System Description:
+ * Example 1 | System Description:
  *
  * In this pattern, an interface is responsible for creating a factory of relevant objects
  * without explicitly specifying their concrete implementations, i.e., classes. Each
@@ -22,8 +22,8 @@ package creationalpatterns.abstractfactory;
  * 5️⃣ Create a **Super Factory** (Factory of Factories) called ThemeProducer to return the appropriate sub-factory.
  * 6️⃣ Use the factories in the main method to create and display themes dynamically.
  */
-
-// Step 1: Define a common interface
+// The user can only interact with interface and this patten isolates concrete classes from the user.
+// Step 1: Define a common interface.
 interface Theme {
     public void show();  // Method to display the theme
 }
