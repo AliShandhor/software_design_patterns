@@ -1,0 +1,130 @@
+package behavioralpatterns.visitor;
+
+// Key Points of the Visitor Pattern:
+//Visitor: The main class that implements operations on elements of the object structure.
+// concete visitor
+//Element: The interface or abstract class that defines the accept method to allow the visitor to visit it.
+//
+//ConcreteElement: The class that implements the accept method and accepts the visitor.
+//
+//ObjectStructure (main): A collection or structure of elements that can be visited by the visitor.
+
+
+import java.text.DecimalFormat;
+
+// Element
+interface Account{
+    int getAccountNumber();
+    float getBalance();
+    void accept(AccountVisitor visitor);
+}
+// Concrete elements
+class CheckingAccount implements Account{
+    private int accountNumber;
+    private float currentBalance;
+
+    public CheckingAccount(int accountNumber, float currentBalance){
+        this.accountNumber  = accountNumber;
+        this.currentBalance = currentBalance;
+    }
+    @Override
+    public int getAccountNumber() {
+        return this.accountNumber;
+    }
+
+    @Override
+    public float getBalance() {
+        return this.currentBalance;
+    }
+
+    @Override
+    public void accept(AccountVisitor visitor) {
+        visitor.visitCheckingAccount(this);
+
+    }
+
+}
+
+class SavingsAccount implements Account{
+    private int accountNumber;
+    private float currentBalance;
+
+    public SavingsAccount(int accountNumber, float currentBalance){
+        this.accountNumber = accountNumber;
+        this.currentBalance = currentBalance;
+    }
+
+    @Override
+    public int getAccountNumber() {
+        return this.accountNumber;
+    }
+
+    @Override
+    public float getBalance() {
+        return this.currentBalance;
+    }
+
+    @Override
+    public void accept(AccountVisitor visitor) {
+        visitor.visitSavingsAccount(this);
+
+    }
+}
+
+// Visitor
+interface AccountVisitor {
+    void visitCheckingAccount(CheckingAccount checkingAccount);
+    void visitSavingsAccount(SavingsAccount savingsAccount);
+}
+
+// concerte visitor
+ class AccountInquiryVisitor implements AccountVisitor {
+
+    private String checkAcctBal;
+    private int checkAcctNum;
+    private String saveAcctBal;
+    private int saveAcctNum;
+    private DecimalFormat money;
+
+    public AccountInquiryVisitor() {
+        checkAcctBal = "";
+        checkAcctNum = 0;
+        saveAcctBal = "";
+        saveAcctNum = 0;
+        money = new DecimalFormat("$0.00");
+    }
+
+    public void visitCheckingAccount(CheckingAccount cAccount) {
+        checkAcctBal = money.format(cAccount.getBalance());
+        checkAcctNum = cAccount.getAccountNumber();
+    }
+
+    public void visitSavingsAccount(SavingsAccount sAccount) {
+        saveAcctBal = money.format(sAccount.getBalance());
+        saveAcctNum = sAccount.getAccountNumber();
+    }
+
+    public void displayInquiry() {
+        System.out.println("Checking Account Num: " +  checkAcctNum + "\nCurrent Balance: " + checkAcctBal);
+
+        System.out.println("Saving Account Num: " +  saveAcctNum + "\nCurrent Balance: " + saveAcctBal);
+
+    }
+}
+
+public class BankAccountMain {
+    public static void main(String[] args) {
+        // elements
+        CheckingAccount checkingAccount = new CheckingAccount(102352, 1000);
+        SavingsAccount savingsAccount = new SavingsAccount(10334, 2000);
+
+        AccountInquiryVisitor inquiry = new AccountInquiryVisitor();
+
+        checkingAccount.accept(inquiry);
+        savingsAccount.accept(inquiry);
+
+        inquiry.displayInquiry();
+
+
+    }
+}

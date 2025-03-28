@@ -1,0 +1,146 @@
+package behavioralpatterns.command;
+
+/**
+ * Interface representing a command in the Command Pattern.
+ * Each concrete command will implement this interface.
+ */
+interface ICommand {
+    Result doAction(); // Executes the command and returns a result.
+}
+
+/**
+ * Concrete implementation of ICommand that triggers someAction1 on the Receiver.
+ */
+class ConcreteCommandA implements ICommand {
+    private Receiver receiver; // The receiver that executes the actual logic.
+
+    public ConcreteCommandA(Receiver receiver) {
+        super();
+        this.receiver = receiver;
+    }
+
+    /**
+     * Executes someAction1 on the receiver and returns the result.
+     */
+    public Result doAction() {
+        return receiver.someAction1();
+    }
+}
+
+/**
+ * Concrete implementation of ICommand that triggers someAction2 on the Receiver.
+ */
+class ConcreteCommandB implements ICommand {
+    private Receiver receiver; // The receiver that executes the actual logic.
+
+    public ConcreteCommandB(Receiver receiver) {
+        super();
+        this.receiver = receiver;
+    }
+
+    /**
+     * Executes someAction2 on the receiver and returns the result.
+     */
+    public Result doAction() {
+        return receiver.someAction2();
+    }
+}
+
+/**
+ * Concrete implementation of ICommand that triggers someAction3 on the Receiver.
+ */
+class ConcreteCommandC implements ICommand {
+    private Receiver receiver; // The receiver that executes the actual logic.
+
+    public ConcreteCommandC(Receiver receiver) {
+        super();
+        this.receiver = receiver;
+    }
+
+    /**
+     * Executes someAction3 on the receiver and returns the result.
+     */
+    public Result doAction() {
+        return receiver.someAction3();
+    }
+}
+
+/**
+ * Generic Result class to encapsulate returned results.
+ * @param <T> The type of data contained in the result.
+ */
+class Result<T> {
+    private T data; // The actual result data.
+
+    public Result(T data) {
+        this.data = data;
+    }
+
+    /**
+     * Retrieves the stored result data.
+     */
+    public T getData() {
+        return data;
+    }
+
+    /**
+     * Updates the stored result data.
+     */
+    public void setData(T data) {
+        this.data = data;
+    }
+}
+
+ class Receiver {
+    public Result someAction1() {
+        System.out.println("Some Action 1 was
+                invoked");
+                Result result = new Result<Boolean>();
+        result.setData(true);
+        return result;
+    }
+    public Result someAction2() {
+        System.out.println("Some Action 2 was
+                invoked");
+                Result result = new Result<String>();
+        result.setData("A String Result");
+        return result;
+    }
+    public Result someAction3() {
+        System.out.println("Some Action 3 was
+                invoked");
+                Result result = new Result<Float>();
+        result.setData(10.0f);
+        return result;
+    }
+}
+ class Invoker {
+    private ICommand command;
+    public ICommand getCommand() {
+        return command;
+    }
+    public void setCommand(ICommand command) {
+        this.command = command;
+    }
+    public Result execute() {
+        return command.doAction();
+    }
+}
+/**
+ * Main class demonstrating the Command Pattern.
+ */
+public class Main {
+    public static void main(String[] args) {
+        Receiver receiver = new Receiver(); // The receiver that executes actual operations.
+
+        // Creating different command objects and associating them with the receiver.
+        ICommand commandA = new ConcreteCommandA(receiver);
+        ICommand commandB = new ConcreteCommandB(receiver);
+        ICommand commandC = new ConcreteCommandC(receiver);
+
+        // Executing commands and printing the results.
+        System.out.println(commandA.doAction().getData());
+        System.out.println(commandB.doAction().getData());
+        System.out.println(commandC.doAction().getData());
+    }
+}

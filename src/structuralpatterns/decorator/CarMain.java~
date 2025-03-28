@@ -1,0 +1,5 @@
+package structuralpatterns.decorator;
+
+// Decorator Pattern
+public class CarMain {
+}

@@ -1,0 +1,45 @@
+package behavioralpatterns.iterator;
+
+Step 1: Create an Iterator Interface
+interface Iterator {
+    boolean hasNext();
+    String next();
+}
+Step 2: Create a Concrete Iterator
+class NameIterator implements Iterator {
+    private String[] names;
+    private int index = 0;
+
+    public NameIterator(String[] names) {
+        this.names = names;
+    }
+
+    public boolean hasNext() {
+        return index < names.length;
+    }
+
+    public String next() {
+        return hasNext() ? names[index++] : null;
+    }
+}
+Step 3: Create a Collection Class
+class NameCollection {
+    private String[] names = {"Ali", "Omar", "Ainaz"};
+
+    public Iterator getIterator() {
+        return new NameIterator(names);
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        NameCollection collection = new NameCollection();
+        Iterator iterator = collection.getIterator();
+
+        while (iterator.hasNext()) {
+            System.out.println(iterator.next());
+        }
+    }
+}
+
+public class Main {
+}
